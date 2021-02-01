@@ -5,7 +5,7 @@ Upload and convert audo files.
 ## Developent
 
 ```bash
-git clone ...
+git clone https://github.com/dasdachs/ffmpeg-api.git
 ```
 
 ## Lint and test
