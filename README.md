@@ -23,6 +23,6 @@ go build
 ## Dockerize
 
 ```bash
-docker build -t dasdachs/go-ffmpeg-service:latest .
+docker build -t container_name:tag .
 ```
 
