@@ -1,0 +1,43 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "FFMPEG rest api server",
+        "title": "FFMPEG Server",
+        "contact": {
+            "name": "Jani Šumak",
+            "email": "jani.sumak@gmila.com"
+        },
+        "license": {
+            "name": "MIT",
+            "url": "https://mit-license.org/"
+        },
+        "version": "1.0"
+    },
+    "host": "localhost:8080",
+    "basePath": "/api/v1",
+    "paths": {
+        "/api/v1/convet": {
+            "post": {
+                "description": "Upload file and convert using",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "summary": "Upload and convert file",
+                "responses": {
+                    "201": {
+                        "description": "created",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "fail",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

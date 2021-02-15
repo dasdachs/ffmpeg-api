@@ -1,0 +1,29 @@
+basePath: /api/v1
+host: localhost:8080
+info:
+  contact:
+    email: jani.sumak@gmila.com
+    name: Jani Šumak
+  description: FFMPEG rest api server
+  license:
+    name: MIT
+    url: https://mit-license.org/
+  title: FFMPEG Server
+  version: "1.0"
+paths:
+  /api/v1/convet:
+    post:
+      consumes:
+      - multipart/form-data
+      description: Upload file and convert using
+      responses:
+        "201":
+          description: created
+          schema:
+            type: string
+        "500":
+          description: fail
+          schema:
+            type: string
+      summary: Upload and convert file
+swagger: "2.0"
