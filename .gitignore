@@ -1,0 +1,8 @@
+# Project
+/temp
+!/temp/.gitkeep
+
+# MISC
+.DS_Store
+.vscode
+.ide

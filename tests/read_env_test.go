@@ -1,17 +1,27 @@
-package main
+package utils
 
 import (
 	"os"
 	"testing"
+
+	"github.com/dasdachs/ffmpeg-stream/utils"
 )
 
-func TestEnvLenghtHasChanged(t *testing.T) {
-	envLen := len(os.Environ())
+type MockFileReader struct {
+	data []string
+}
 
-	input := []string{
+func (mfr MockFileReader) ReadEnvFile() []string {
+	return mfr.data
+}
+
+func TestEnvLengthHasChanged(t *testing.T) {
+	envLen := len(os.Environ())
+	data := []string{
 		"PORT=8080",
 	}
-	ParseAnSetEnv(input)
+	fr := &MockFileReader{data}
+	utils.ParseAndSetEnv(fr)
 
 	newEnvLen := len(os.Environ())
 
@@ -23,14 +33,15 @@ func TestEnvLenghtHasChanged(t *testing.T) {
 func TestEnvHasCorrectLength(t *testing.T) {
 	envLen := len(os.Environ())
 
-	input := []string{
+	data := []string{
 		"PORT=8080",
 		"ENV=development",
 		"DATA= some data",
 		"",
 		"# Comment",
 	}
-	ParseAnSetEnv(input)
+	fr := &MockFileReader{data}
+	utils.ParseAndSetEnv(fr)
 
 	newEnvLen := len(os.Environ())
 
@@ -40,7 +51,7 @@ func TestEnvHasCorrectLength(t *testing.T) {
 }
 
 func TestEnvParser(t *testing.T) {
-	input := []string{
+	data := []string{
 		"PORT=8080",
 		"ENV=development",
 		"DATA= some data",
@@ -48,7 +59,8 @@ func TestEnvParser(t *testing.T) {
 		"# Comment",
 		"#ORDER=66",
 	}
-	ParseAnSetEnv(input)
+	fr := &MockFileReader{data}
+	utils.ParseAndSetEnv(fr)
 
 	if os.Getenv("PORT") != "8080" {
 		t.Errorf("Env variable PORT no set")

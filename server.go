@@ -7,50 +7,16 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
-	"strings"
+
+	"github.com/dasdachs/ffmpeg-stream/utils"
+	// "github.com/giorgisio/goav/avformat"
 )
 
 const PORT = "8080"
 const MAX_UPLOAD_SIZE = 10 * 1024 * 1024 // 2 MB
 
-func ReadEnvFile() []string {
-	_, err := os.Stat(".env")
-	if os.IsNotExist(err) {
-		return make([]string, 0)
-	}
-
-	data, err := ioutil.ReadFile(".env")
-	if err != nil {
-		log.Panic("Could not parse .env file")
-	}
-
-	content := strings.Split(string(data), "\n")
-
-	return content
-}
-
-func ParseAnSetEnv(content []string) {
-	for _, line := range content {
-		if strings.HasPrefix(line, "#") || len(line) == 0 {
-			continue
-		}
-
-		vals := strings.Split(line, "=")
-
-		key := vals[0]
-		val := strings.TrimSpace(strings.Split(vals[1], "#")[0])
-
-		err := os.Setenv(key, val)
-		if err != nil {
-			log.Fatalf("Could not parse %s\n", line)
-		}
-	}
-}
-
 func main() {
-	// Parse and set the .env file in development
-	envContent := ReadEnvFile()
-	ParseAnSetEnv(envContent)
+	utils.ParseEnv()
 
 	// Setup simple logger
 	log.SetFlags(2 | 3)
